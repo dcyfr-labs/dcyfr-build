@@ -1,0 +1,8 @@
+# DCYFR Build
+
+> Battle-tested Docker, Kubernetes, and CI/CD templates with cost estimator.
+
+## Pages
+- [Home](https://dcyfr.build/): Infrastructure template library for AI-powered apps — all templates MIT licensed.
+- [Templates](https://dcyfr.build/templates): Browse production-ready Docker, Kubernetes, and CI/CD templates by category, stack, and difficulty.
+- [Cost Estimator](https://dcyfr.build/cost-estimator): Estimate monthly infrastructure cost for a template-based deployment.
