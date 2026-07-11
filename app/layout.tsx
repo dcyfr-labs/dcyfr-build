@@ -10,6 +10,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://dcyfr.build'),
   title: 'DCYFR Build — Infrastructure Template Library',
   description: 'Battle-tested Docker, Kubernetes, and CI/CD templates with cost estimator.',
 };
