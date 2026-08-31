@@ -7,7 +7,22 @@ import { PageShell, SiteNav, SiteFooter } from '@/components/chrome';
 import { DcyfrToaster } from '@/components/ui/dcyfr-sonner';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// Named for the face, not the role. The theme engine binds <body> and headings
+// to --font-body / --font-display, and the theme resolves each through a
+// --font-<role>-loaded hook; globals.css points those hooks and the `font-sans`
+// utility at this one variable. Naming it for the face means three roles can
+// share it without any Tailwind theme key pointing at another, and swapping
+// Inter out later is a one-line change here.
+//
+// This replaces `inter.className` on <body>. That class carries a bare
+// `font-family` unlayered, which beats anything in @layer base regardless of
+// source order — so leaving it would have killed the engine's type binding
+// while the source still looked correct.
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dcyfr.build'),
@@ -17,9 +32,9 @@ export const metadata: Metadata = {
 
 const DcyfrBuildLogo = (
   <span className="inline-flex items-center gap-2 text-lg font-bold tracking-tight">
-    <span className="text-accent">◈</span>
+    <span className="text-accent-600">◈</span>
     <span>
-      dcyfr<span className="text-accent">.build</span>
+      dcyfr<span className="text-accent-600">.build</span>
     </span>
   </span>
 );
@@ -52,8 +67,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="theme-dcyfr-build">
-      <body className={`${inter.className} min-h-screen font-sans`}>
+    // data-identity selects the theme package; the .dark class (added by
+    // ThemeProvider) selects the scheme. They are orthogonal by construction —
+    // the theme is scoped [data-identity="slate"] / [data-identity="slate"].dark
+    // — so identity and scheme can no longer tie on specificity the way two
+    // single classes on this same element did, which is how the old amber
+    // identity block was reaching into dark mode. Stamped server-side, so it is
+    // present in the first paint rather than after hydration.
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-identity="slate"
+      className={`${inter.variable} theme-dcyfr-build`}
+    >
+      <body className="min-h-screen">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <PageShell
             nav={<SiteNav logo={DcyfrBuildLogo} links={NAV_LINKS} />}
