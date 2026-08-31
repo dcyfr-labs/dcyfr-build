@@ -1,12 +1,109 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@source "../app";
+@source "../components";
+
+/*
+ * next-themes drives the scheme with a class on <html>, not the OS media
+ * query, so the `dark:` variant has to be re-pointed at that class. There are
+ * currently no `dark:` utilities in this tree — the scheme switch runs
+ * entirely through the token blocks below — but leaving the variant on v4's
+ * media-query default would silently mis-target the first one anybody writes.
+ */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Semantic-var bridge, migrated verbatim out of the deleted tailwind.config.ts.
+ *
+ * The `hsl(var(--x))` wrapper is retained deliberately at this step: the token
+ * blocks below still hold bare HSL triplets, so the wrapper is still the
+ * correct reading of them. Flipping tokens to full color values and the
+ * mapping to plain `var(--x)` is the theme-engine adoption, and it lands as
+ * its own commit so a v4 default-value regression and a token regression can
+ * never arrive in the same diff.
+ */
+@theme inline {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* DCYFR-specific semantic tokens */
+  --color-secure: hsl(var(--secure));
+  --color-secure-foreground: hsl(var(--secure-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+
+  /*
+   * The radius scale is an override, not the stock v4 one. `rounded-sm` here
+   * means calc(var(--radius) - 4px), which at this site's 0.25rem identity
+   * radius is 0px — NOT v4's stock 0.125rem. That is why the published
+   * `rounded-sm` → `rounded-xs` rename is not applied in this commit: it would
+   * silently move six call sites onto a scale this project does not use. The
+   * rename is only correct on the stock scale.
+   */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /*
+   * The deleted config also declared transitionTimingFunction.brand, which
+   * generated an `ease-brand` utility. It has zero call sites in this tree, so
+   * it is not carried over. Naming it here would also force --ease-brand to be
+   * renamed everywhere it is authored, since a @theme key and a raw variable of
+   * the same name self-reference. The raw --ease-brand stays in :root below.
+   */
+}
+
+/*
+ * v4 changed the default border color from gray-200 to `currentColor`, so
+ * every bare `border` utility in the tree would otherwise start painting the
+ * element's text color. Restoring the default globally is one rule instead of
+ * one edit per call site, it cannot miss a call site, and it is what shadcn's
+ * own v4 migration ships. Several of the call sites here live in
+ * byte-identical @dcyfr-labs registry copies that no gate watches for drift,
+ * so editing those would fork them from the registry invisibly.
+ *
+ * Not a byte-for-byte restoration: v3's default was gray-200 (#e5e7eb) and
+ * --border is slate-200 (#e2e8f0). That one-step difference is a deliberate
+ * correction toward the token the design system actually wants.
+ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border, currentColor);
+  }
+}
 
 /*
  * Phase 1 semantic CSS variable set per
  * openspec/changes/dcyfr-skeleton-sites-scaffolding/spec.md §1.
- * .theme-dcyfr-build identity (tool / utility / amber + zinc) staged but not
- * yet applied to <html>.
+ *
+ * The .theme-dcyfr-build block below IS applied to <html> — see app/layout.tsx.
+ * The header here claimed it was "staged but not yet applied" from the day it
+ * was written; that claim was false at this site, so it is corrected rather
+ * than carried forward.
  */
 
 @layer base {
@@ -71,6 +168,14 @@
   /*
    * Identity: tool / utility hub — amber + zinc, sharp radius.
    * Source: docs/dcyfr-workspace/sites/dcyfr-build.md
+   *
+   * This block and `.dark` are both single classes on the same <html>, so they
+   * tie on specificity and source order decides. This one is declared second,
+   * which means its --primary and --accent win in BOTH schemes: dark mode
+   * never sees the .dark values for those two. That is pre-existing and left
+   * alone here — this commit changes no token values — but it is exactly the
+   * class-based identity/scheme collision the theme engine removes, and it is
+   * what the next commit is for.
    */
   .theme-dcyfr-build {
     --primary: 38 92% 50%;
