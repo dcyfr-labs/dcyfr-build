@@ -48,6 +48,12 @@ const FOOTER_COLUMNS = [
   },
 ];
 
+const LEGAL_LINKS = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: 'https://dcyfr.ai/terms', label: 'Terms', external: true },
+  { href: 'https://dcyfr.ai/security', label: 'Security', external: true },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -64,6 +70,7 @@ export default function RootLayout({
                   tagline: 'Infrastructure for AI-powered apps · All templates MIT licensed',
                 }}
                 columns={FOOTER_COLUMNS}
+                legal={LEGAL_LINKS}
               />
             }
             padding="none"
