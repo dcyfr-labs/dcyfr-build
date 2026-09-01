@@ -14,7 +14,7 @@ export default function CostEstimatorPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-foreground/70 mb-2">Cost Estimator</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Cost Estimator</h1>
         <p className="text-muted-foreground">
           Estimate monthly infrastructure costs across 5 cloud providers for any template.
         </p>

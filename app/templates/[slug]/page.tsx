@@ -26,23 +26,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+// Kept byte-identical to the maps in components/TemplateCard.tsx — the detail
+// page and the card render the same pill side by side in a listing, so a drift
+// between the two reads as a rendering bug. See that file for why these pair a
+// fill token with its `-foreground` partner instead of tinting the fill with
+// the label's own hue.
 const DIFFICULTY_COLORS: Record<InfraTemplate['difficulty'], string> = {
-  beginner:     'bg-success/40 border-success/40 text-success',
-  intermediate: 'bg-warning/40 border-warning/40 text-warning',
-  advanced:     'bg-destructive/40 border-destructive/40 text-destructive',
+  beginner:     'bg-success border-success text-success-foreground',
+  intermediate: 'bg-warning border-warning text-warning-foreground',
+  advanced:     'bg-destructive border-destructive text-destructive-foreground',
 };
 
 // CATEGORY_COLORS — see components/TemplateCard.tsx for full rationale.
 // docker → secure (blue in theme); kubernetes + monitoring stay as
-// deliberate carveouts (no matching semantic on dcyfr-build palette).
-// Lint exception recorded in the archived openspec change.
+// deliberate carveouts (no matching semantic on dcyfr-build palette) and so
+// carry an explicit light-mode pair rather than dark-tuned values applied to
+// both schemes. Lint exception recorded in the archived openspec change.
 const CATEGORY_COLORS: Record<InfraTemplate['category'], string> = {
-  docker:      'bg-secure/20 border-secure/40 text-secure',
-  kubernetes:  'bg-violet-900/40 border-violet-700/40 text-violet-300',
-  'ci-cd':     'bg-warning/40 border-warning/40 text-warning',
-  monitoring:  'bg-cyan-900/40 border-cyan-700/40 text-cyan-300',
-  security:    'bg-destructive/40 border-destructive/40 text-destructive',
-  networking:  'bg-card/40 border-border/40 text-muted-foreground',
+  docker:      'bg-secure border-secure text-secure-foreground',
+  kubernetes:  'bg-violet-700 border-violet-700 text-violet-50 dark:bg-violet-400 dark:border-violet-400 dark:text-violet-950',
+  'ci-cd':     'bg-warning border-warning text-warning-foreground',
+  monitoring:  'bg-cyan-700 border-cyan-700 text-cyan-50 dark:bg-cyan-400 dark:border-cyan-400 dark:text-cyan-950',
+  security:    'bg-destructive border-destructive text-destructive-foreground',
+  networking:  'bg-muted border-border text-foreground',
 };
 
 export default async function TemplateDetailPage({ params }: PageProps) {
@@ -81,7 +87,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
 
       <div className="bg-card/30 border border-border/40 rounded-xl p-6 sm:p-8 mb-8">
         <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground/70">{template.name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{template.name}</h1>
           <DownloadButton content={template.content} filename={filename} />
         </div>
         <p className="text-muted-foreground mb-6">{template.description}</p>
@@ -105,7 +111,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold text-foreground/70 mb-4">Template Code</h2>
+        <h2 className="text-lg font-semibold text-foreground mb-4">Template Code</h2>
         <CodePreview content={template.content} filename={filename} />
       </div>
     </div>

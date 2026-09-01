@@ -49,7 +49,7 @@ export default function TemplatesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-foreground/70 mb-2">Infrastructure Templates</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Infrastructure Templates</h1>
         <p className="text-muted-foreground">{templates.length} templates — all MIT licensed and production-validated.</p>
       </div>
 
@@ -60,7 +60,7 @@ export default function TemplatesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search templates…"
-          className="w-full sm:max-w-sm bg-background/60 border border-border/40 rounded-lg px-4 py-2 text-sm text-muted-foreground placeholder:text-muted-foreground/60 focus:outline-hidden focus:border-primary/50"
+          className="w-full sm:max-w-sm bg-background/60 border border-border/40 rounded-lg px-4 py-2 text-sm text-muted-foreground placeholder:text-muted-foreground focus:outline-hidden focus:border-primary/50"
         />
       </div>
 
