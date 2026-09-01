@@ -60,7 +60,7 @@ export default function TemplatesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search templates…"
-          className="w-full sm:max-w-sm bg-background/60 border border-border/40 rounded-lg px-4 py-2 text-sm text-muted-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50"
+          className="w-full sm:max-w-sm bg-background/60 border border-border/40 rounded-lg px-4 py-2 text-sm text-muted-foreground placeholder:text-muted-foreground/60 focus:outline-hidden focus:border-primary/50"
         />
       </div>
 

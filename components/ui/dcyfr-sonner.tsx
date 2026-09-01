@@ -34,11 +34,17 @@ function DcyfrToaster({ ...props }: ToasterProps) {
             "group-[.toast]:!border-secure/30 group-[.toast]:!bg-secure/5 group-[.toast]:!text-secure",
         },
       }}
+      // Contract v2 tokens carry full color values, so these pass var(--x)
+      // straight through. The registry's copy of this file still wraps them in
+      // hsl(), which double-wraps under the theme engine and resolves to
+      // nothing — the toast loses its background, text color and border. This
+      // is a local fork until the registry item is updated; re-running
+      // `shadcn add @dcyfr-labs/dcyfr-sonner` today would reintroduce the bug.
       style={
         {
-          "--normal-bg": "hsl(var(--popover))",
-          "--normal-text": "hsl(var(--popover-foreground))",
-          "--normal-border": "hsl(var(--border))",
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
         } as React.CSSProperties
       }
       {...props}
