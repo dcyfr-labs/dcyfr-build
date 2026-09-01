@@ -83,7 +83,7 @@ export default function HomePage() {
 
       {/* Categories */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 className="text-2xl font-bold text-foreground/70 mb-8">Browse by Category</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-8">Browse by Category</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {CATEGORIES.map((cat) => (
             <Link
@@ -102,7 +102,7 @@ export default function HomePage() {
       {/* Recent */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-foreground/70">Recent Templates</h2>
+          <h2 className="text-2xl font-bold text-foreground">Recent Templates</h2>
           <DcyfrButton asChild variant="ghostly" size="sm">
             <Link href="/templates" className="text-muted-foreground">
               View all {templates.length} →

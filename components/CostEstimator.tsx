@@ -133,7 +133,7 @@ export function CostEstimator({ templates }: Readonly<Props>) {
   return (
     <DcyfrCard variant="elevated" padding="lg" className="bg-card/20 border-border/30">
       <div className="px-6 sm:px-8">
-        <h2 className="text-xl font-semibold text-foreground/70 mb-6">Cost Estimator</h2>
+        <h2 className="text-xl font-semibold text-foreground mb-6">Cost Estimator</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="space-y-2">

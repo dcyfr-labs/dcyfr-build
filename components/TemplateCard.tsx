@@ -14,19 +14,34 @@ interface Props {
 // docker=blue migrated to `secure` (which IS blue: 217 91% 60% under theme).
 // Lint exception: the workspace-level `scripts/polish-loop/lint-design-tokens.mjs`
 // informational rule tolerates these as carveouts; strict backstop stays green.
+//
+// Every pill pairs a fill token with its DESIGNED foreground partner rather
+// than tinting the fill with the same hue as its own label. The tint idiom
+// these maps used before (`bg-warning/40 text-warning`) cannot reach WCAG AA
+// for the warm tokens: measured against the live stylesheet, `text-warning` on
+// `bg-warning/40` is 2.81:1 in light, and it does not clear 4.5 at ANY fill
+// alpha — 10% still only reaches 4.38:1, because light `--warning`
+// (26 90% 37%) is already marginal against white before any tint is applied.
+// `text-success` behaves the same way (4.43:1 at its best). The designed pair
+// is the fix the palette already ships for this: solid fill, `-foreground`
+// label, 4.83:1 light / 10.38:1 dark for warning and 4.86 / 10.3 for success.
+// The violet and cyan carveouts have no `-foreground` partner, so they carry
+// an explicit light-mode pair; the previous single-value styling was tuned for
+// dark (9.23:1) and applied unconditionally, which rendered `text-violet-300`
+// on a pale violet wash at 1.23:1 in light — the worst reading on this site.
 const CATEGORY_COLORS: Record<InfraTemplate['category'], string> = {
-  docker:      'bg-secure/20 border-secure/40 text-secure',
-  kubernetes:  'bg-violet-900/40 border-violet-700/40 text-violet-300',
-  'ci-cd':     'bg-warning/40 border-warning/40 text-warning',
-  monitoring:  'bg-cyan-900/40 border-cyan-700/40 text-cyan-300',
-  security:    'bg-destructive/40 border-destructive/40 text-destructive',
-  networking:  'bg-card/40 border-border/40 text-muted-foreground',
+  docker:      'bg-secure border-secure text-secure-foreground',
+  kubernetes:  'bg-violet-700 border-violet-700 text-violet-50 dark:bg-violet-400 dark:border-violet-400 dark:text-violet-950',
+  'ci-cd':     'bg-warning border-warning text-warning-foreground',
+  monitoring:  'bg-cyan-700 border-cyan-700 text-cyan-50 dark:bg-cyan-400 dark:border-cyan-400 dark:text-cyan-950',
+  security:    'bg-destructive border-destructive text-destructive-foreground',
+  networking:  'bg-muted border-border text-foreground',
 };
 
 const DIFFICULTY_COLORS: Record<InfraTemplate['difficulty'], string> = {
-  beginner:     'bg-success/40 border-success/40 text-success',
-  intermediate: 'bg-warning/40 border-warning/40 text-warning',
-  advanced:     'bg-destructive/40 border-destructive/40 text-destructive',
+  beginner:     'bg-success border-success text-success-foreground',
+  intermediate: 'bg-warning border-warning text-warning-foreground',
+  advanced:     'bg-destructive border-destructive text-destructive-foreground',
 };
 
 export function TemplateCard({ template, compact = false }: Readonly<Props>) {
@@ -36,7 +51,7 @@ export function TemplateCard({ template, compact = false }: Readonly<Props>) {
       className="group block bg-card/20 border border-border/30 rounded-xl p-5 hover:bg-muted/30 hover:border-primary/60/50 transition-all"
     >
       <div className="flex items-start justify-between gap-2 mb-3">
-        <h3 className="font-semibold text-foreground/70 group-hover:text-foreground transition-colors leading-tight">
+        <h3 className="font-semibold text-foreground group-hover:text-foreground transition-colors leading-tight">
           {template.name}
         </h3>
       </div>
