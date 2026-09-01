@@ -31,7 +31,7 @@ export default function HomePage() {
           <DcyfrBadge
             variant="info"
             size="md"
-            className="mb-8 rounded-full border-primary/60/40 bg-muted/40 text-muted-foreground"
+            className="mb-8 rounded-full border-primary/40 bg-muted/40 text-muted-foreground"
           >
             <span
               className="w-2 h-2 rounded-full bg-primary/80 animate-pulse"
@@ -89,7 +89,7 @@ export default function HomePage() {
             <Link
               key={cat.key}
               href={`/templates?category=${cat.key}`}
-              className="group flex flex-col items-center gap-2 p-4 rounded-xl bg-card/20 border border-border/30 hover:bg-muted/30 hover:border-primary/60/50 transition-all text-center"
+              className="group flex flex-col items-center gap-2 p-4 rounded-xl bg-card/20 border border-border/30 hover:bg-muted/30 hover:border-primary/50 transition-all text-center"
             >
               <span className="text-2xl">{cat.icon}</span>
               <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{cat.label}</span>

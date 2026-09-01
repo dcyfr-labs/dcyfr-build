@@ -34,7 +34,7 @@ export function CodePreview({ content, filename }: Readonly<Props>) {
         <span className="text-xs text-primary font-mono">{filename ?? 'template'}</span>
         <button
           onClick={() => void handleCopy()}
-          className="text-xs text-muted-foreground hover:text-muted-foreground transition-colors px-3 py-1 rounded border border-border/40 hover:border-primary/50/60"
+          className="text-xs text-muted-foreground hover:text-muted-foreground transition-colors px-3 py-1 rounded border border-border/40 hover:border-primary/60"
         >
           {copied ? '✓ Copied' : 'Copy'}
         </button>
