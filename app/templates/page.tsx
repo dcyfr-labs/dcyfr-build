@@ -44,7 +44,7 @@ export default function TemplatesPage() {
 
   const btnBase = 'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors';
   const btnActive = 'bg-muted border-primary/60 text-foreground';
-  const btnInactive = 'bg-card/20 border-border/40 text-muted-foreground hover:text-muted-foreground hover:border-primary/60/60';
+  const btnInactive = 'bg-card/20 border-border/40 text-muted-foreground hover:text-muted-foreground hover:border-primary/60';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
