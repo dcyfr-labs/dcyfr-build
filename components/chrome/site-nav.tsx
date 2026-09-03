@@ -40,7 +40,7 @@ export interface SiteNavProps {
   /** Optional right-aligned CTA (e.g. "Sign in", "Get started"). */
   cta?: NavCTA;
   /** Layout variant — matches dcyfr-navigation-menu variants.
-   *  - `default`: full-width bordered bar with backdrop-blur
+   *  - `default`: full-width bordered bar with backdrop-blur-sm
    *  - `centered`: max-width container, transparent bg
    *  - `minimal`: transparent, no border */
   variant?: 'default' | 'centered' | 'minimal';
@@ -52,7 +52,7 @@ export interface SiteNavProps {
 
 const variantClass = {
   default:
-    'sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+    'sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60',
   centered: 'sticky top-0 z-40 w-full bg-transparent',
   minimal: 'w-full bg-transparent',
 } as const;
