@@ -25,7 +25,11 @@ for (const route of ROUTES) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(route.path, { waitUntil: 'domcontentloaded' });
+      // Let hydration + layout settle before the snapshot. The fixed wait is a
+      // floor, not the font gate: Geist is self-hosted through next/font/local
+      // and swaps in whenever the woff2 lands, so wait on the face itself.
       await page.waitForTimeout(1500);
+      await page.evaluate(() => document.fonts.ready);
       await expect(page).toHaveScreenshot(`${route.name}-${vp.name}.png`, {
         fullPage: true,
         maxDiffPixelRatio: 0.05,

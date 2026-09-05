@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/chrome/theme-provider';
@@ -8,23 +9,6 @@ import { SiteFooter, type FooterLink } from '@/components/chrome/site-footer';
 import type { ChromeNavSection } from '@/components/chrome/nav-utils';
 import { DcyfrToaster } from '@/components/ui/dcyfr-sonner';
 import './globals.css';
-
-// Named for the face, not the role. The theme engine binds <body> and headings
-// to --font-body / --font-display, and the theme resolves each through a
-// --font-<role>-loaded hook; globals.css points those hooks and the `font-sans`
-// utility at this one variable. Naming it for the face means three roles can
-// share it without any Tailwind theme key pointing at another, and swapping
-// Inter out later is a one-line change here.
-//
-// This replaces `inter.className` on <body>. That class carries a bare
-// `font-family` unlayered, which beats anything in @layer base regardless of
-// source order — so leaving it would have killed the engine's type binding
-// while the source still looked correct.
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dcyfr.build'),
@@ -110,7 +94,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-identity="slate"
-      className={`${inter.variable} theme-dcyfr-build`}
+      className={`${GeistSans.variable} ${GeistMono.variable} theme-dcyfr-build`}
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
