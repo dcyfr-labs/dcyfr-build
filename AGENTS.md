@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`dcyfr-build-hub` is a Next.js 15 / React 19 site for build-focused DCYFR workflows and resources.
+`dcyfr-build-hub` is a Next.js 16 / React 19 site for build-focused DCYFR workflows and resources.
 
 ## Architecture
 

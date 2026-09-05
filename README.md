@@ -2,11 +2,11 @@
 
 Hub for build-focused DCYFR workflows — cost estimator and templates — live at **[dcyfr.build](https://dcyfr.build)**.
 
-`dcyfr-build-hub` is a Next.js 15 / React 19 site for build-focused DCYFR workflows and resources. It is part of the dcyfr-labs site family alongside [dcyfr-io](https://github.com/dcyfr-labs/dcyfr-io), [dcyfr-app](https://github.com/dcyfr-labs/dcyfr-app), [dcyfr-bot](https://github.com/dcyfr-labs/dcyfr-bot), [dcyfr-codes](https://github.com/dcyfr-labs/dcyfr-codes), [dcyfr-tech](https://github.com/dcyfr-labs/dcyfr-tech), and [dcyfr-work](https://github.com/dcyfr-labs/dcyfr-work).
+`dcyfr-build-hub` is a Next.js 16 / React 19 site for build-focused DCYFR workflows and resources. It is part of the dcyfr-labs site family alongside [dcyfr-io](https://github.com/dcyfr-labs/dcyfr-io), [dcyfr-app](https://github.com/dcyfr-labs/dcyfr-app), [dcyfr-bot](https://github.com/dcyfr-labs/dcyfr-bot), [dcyfr-codes](https://github.com/dcyfr-labs/dcyfr-codes), [dcyfr-tech](https://github.com/dcyfr-labs/dcyfr-tech), and [dcyfr-work](https://github.com/dcyfr-labs/dcyfr-work).
 
 ## Stack
 
-- Next.js 15 (App Router) / React 19 / Tailwind CSS
+- Next.js 16 (App Router) / React 19 / Tailwind CSS
 - shadcn primitives from the `@dcyfr-labs` registry (`registry.dcyfr.ai`); shared chrome (nav, footer, page shell, theme switcher/provider) in [`components/chrome/`](components/chrome/README.md)
 - Radix UI primitives + sonner toasts
 - Playwright for e2e and visual-regression snapshots ([`e2e/`](e2e/README.md))
