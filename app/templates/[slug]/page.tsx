@@ -79,7 +79,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
 
       <Link href="/templates" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-muted-foreground mb-8 transition-colors">
         ← Back to Templates
