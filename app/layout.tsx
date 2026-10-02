@@ -115,7 +115,7 @@ export default function RootLayout({
           <main id="main-content" className="flex-1 pt-18">
             {children}
           </main>
-          <SiteFooter brand="DCYFR" links={FOOTER} />
+          <SiteFooter brand="DCYFR Labs" links={FOOTER} />
           {/* Stays inside ThemeProvider: DcyfrToaster reads next-themes' resolved
               theme value to pick the toast palette, so hoisting it out would strand
               it on the "system" default in dark mode. */}
