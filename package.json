@@ -2,6 +2,7 @@
   "name": "dcyfr-build-hub",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3305",
     "build": "next build",
