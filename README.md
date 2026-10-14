@@ -7,7 +7,7 @@ Hub for build-focused DCYFR workflows — cost estimator and templates — live 
 ## Stack
 
 - Next.js 16 (App Router) / React 19 / Tailwind CSS
-- shadcn primitives from the `@dcyfr-labs` registry (`registry.dcyfr.ai`); shared chrome (nav, footer, page shell, theme switcher/provider) in [`components/chrome/`](components/chrome/README.md)
+- shadcn primitives from the `@dcyfr-labs` registry (`registry.dcyfr.ai`); shared chrome (nav, footer, page shell, theme switcher/provider) in [`components/chrome/`](components/chrome/)
 - Radix UI primitives + sonner toasts
 - Playwright for e2e and visual-regression snapshots ([`e2e/`](e2e/README.md))
 
@@ -36,7 +36,14 @@ Feature data (templates, estimator inputs) lives in `data/`.
 
 ## Environment variables
 
-**None required.** This is a client-only site with no runtime secrets and no server-side integrations. Note that unlike some siblings (app/io/tech/codes) there is no Sentry instrumentation here — flagged in the 2026-07-11 audit as intentional-or-gap.
+None are required to run locally; every variable below is optional.
+
+| Variable | Use |
+|---|---|
+| `NEXT_PUBLIC_SENTRY_DSN` | Client-side Sentry reporting (`instrumentation-client.ts`) |
+| `SENTRY_DSN` | Server and edge Sentry reporting; falls back to `NEXT_PUBLIC_SENTRY_DSN` |
+| `SENTRY_ORG` / `SENTRY_PROJECT` | Build-time source-map upload; default to `dcyfr-labs` / `dcyfr-build` (`next.config.ts`) |
+| `INDEXNOW_KEY` | Served at `/indexnow.txt` for IndexNow; the route returns 404 when unset |
 
 ## Design-token & scaffold contract
 
@@ -57,5 +64,5 @@ Deployed on Vercel from `main`, with hardened security headers via `vercel.json`
 ## Further docs
 
 - [`AGENTS.md`](AGENTS.md) — agent conventions and project structure
-- [`components/chrome/README.md`](components/chrome/README.md) — shared chrome primitives
+- [`components/chrome/`](components/chrome/) — shared chrome primitives
 - [`e2e/README.md`](e2e/README.md) — test suite notes
