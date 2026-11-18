@@ -24,15 +24,21 @@ npm run dev        # http://localhost:3305
 | `npm run build` | Production build |
 | `npm run lint` / `npm run typecheck` | ESLint / `tsc --noEmit` |
 | `npm run test:e2e` (`:ui`) | Playwright e2e suite |
-| `npm run test:snapshots` (`:update`) | Visual-regression snapshots (chromium) |
+| `npm run test:contrast` | Contrast spec (chromium) |
+| `npm run test:snapshots` (`:update`, `:rebaseline`) | Visual-regression snapshots (chromium) |
+| `npm run check:theme-wiring` | Verifies the theme files, the `globals.css` imports and the `data-identity` stamp |
 
 ## Routes
 
 - `/` — hub landing page
 - `/cost-estimator` — interactive build-cost estimator
 - `/templates`, `/templates/[slug]` — build template catalog and detail pages
+- `/privacy`: privacy notice
+- `/robots.txt`, `/sitemap.xml`: generated from `app/robots.ts` and `app/sitemap.ts`
+- `/indexnow.txt`: IndexNow key file (see Environment variables)
+- `/.well-known/security.txt`: RFC 9116 security contact
 
-Feature data (templates, estimator inputs) lives in `data/`.
+Template data lives in `data/templates.json`. The estimator's provider and workload options are defined in `components/CostEstimator.tsx`.
 
 ## Environment variables
 
@@ -47,7 +53,7 @@ None are required to run locally; every variable below is optional.
 
 ## Design-token & scaffold contract
 
-This site follows the `dcyfr-site-scaffold` contract: colors, spacing, radii, and typography resolve via CSS variables — no hardcoded design tokens. Local ESLint rules in `eslint-local-rules/` enforce this and the `design-tokens.yml` workflow gates every PR. From the workspace root, `npm run audit:sites` checks scaffold compliance across the site family.
+This site follows the `dcyfr-site-scaffold` contract: colors, spacing, radii, and typography resolve via CSS variables. Local ESLint rules in `eslint-local-rules/` enforce part of this: `no-hardcoded-colors`, `no-deprecated-design-tokens` and `no-legacy-dcyfr-palette` are errors, while `no-hardcoded-spacing` and `no-hardcoded-typography` are switched off in `eslint.config.mjs`. The `design-tokens.yml` workflow gates every PR. From the workspace root, `npm run audit:sites` checks scaffold compliance across the site family.
 
 ## CI
 
